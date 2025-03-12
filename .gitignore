@@ -14,3 +14,17 @@ dist/
 
 # environment variables
 .env
+
+# Circuit artifacts
+*.r1cs
+*.sym
+*.wasm
+*.wtns
+*.zkey
+zkLogin_js/
+zkLogin_cpp/
+
+# Build outputs
+proof.json
+public.json
+witness.wtns
