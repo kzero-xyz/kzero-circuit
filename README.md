@@ -32,6 +32,12 @@ To generate a zero-knowledge proof, you need a zkey file. We provide a test-zkey
 > Google Drive: https://drive.google.com/file/d/1Pxr8HK7oRhfO1HLtN7rmO6q5NU7pHcUg/view?usp=sharing
 
 ## Demo Usage(Command Line)
+### Yarn 
+Yarn first, to install all needed dependencies.
+```bash
+yarn 
+```
+
 ### Compile the circuit
 ```bash
 circom circuits/zkLogin.circom --r1cs --wasm --sym --c
@@ -75,14 +81,15 @@ If everything goes well, you should see the following output:
 ## Test
 For testing, we provide a ts script that can be used to test the circuit which provides some common test cases:
 1. Test a valid input;
-    1.1 Valid input;
-    1.2 Wrong public signals should verify failed;
+   - 1.1 Valid input;
+   - 1.2 Wrong public signals should verify failed;
 2. Test a input with wrong JWT Nonce;
-    2.1 Wrong eph_public_key in JWT Nonce;
-    2.2 Wrong max_epoch in JWT Nonce;
-    2.3 Wrong jwt_randomness in JWT Nonce;
-    2.4 Miss nonce field
+   - 2.1 Wrong eph_public_key in JWT Nonce;
+    - 2.2 Wrong max_epoch in JWT Nonce;
+    - 2.3 Wrong jwt_randomness in JWT Nonce;
+    - 2.4 Miss nonce field
 3. Test a input with wrong JWT Signature;
+
 Before run the test, please make sure you have already compiled the circuit via `circom circuits/zkLogin.circom --r1cs --wasm --sym --c`
 ```bash
 npm test
