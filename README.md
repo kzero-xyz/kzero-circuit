@@ -22,6 +22,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ### Install circom & snarkjs
 ```bash
 git clone https://github.com/iden3/circom.git
+git checkout v2.1.9
 cargo build --release
 cargo install --path circom
 npm install -g snarkjs
