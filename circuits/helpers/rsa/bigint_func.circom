@@ -134,6 +134,35 @@ function long_sub(n, k, a, b) {
     return diff;
 }
 
+// n bits per register
+// a has k registers
+// b has k registers
+// a >= b
+function long_sub_2(n, k, a, b) {
+    var diff[200];
+    var borrow[200];
+    for (var i = 0; i < k && i < 100; i++) {
+        if (i == 0) {
+           if (a[i] >= b[i]) {
+               diff[i] = a[i] - b[i];
+               borrow[i] = 0;
+            } else {
+               diff[i] = a[i] - b[i] + (1 << n);
+               borrow[i] = 1;
+            }
+        } else {
+            if (a[i] >= b[i] + borrow[i - 1]) {
+               diff[i] = a[i] - b[i] - borrow[i - 1];
+               borrow[i] = 0;
+            } else {
+               diff[i] = (1 << n) + a[i] - b[i] - borrow[i - 1];
+               borrow[i] = 1;
+            }
+        }
+    }
+    return diff;
+}
+
 // a is a n-bit scalar
 // b has k registers
 function long_scalar_mult(n, k, a, b) {
@@ -197,7 +226,7 @@ function long_div(n, k, m, a, b){
                subtrahend[i + j] = mult_shift[j];
             }
         }
-        remainder = long_sub(n, m + k, remainder, subtrahend);
+        remainder = long_sub_2(n, m + k, remainder, subtrahend);
     }
     for (var i = 0; i < k; i++) {
         out[1][i] = remainder[i];
@@ -240,9 +269,9 @@ function short_div(n, k, a, b) {
    var scale = (1 << n) \ (1 + b[k - 1]);
 
    // k + 2 registers now
-   var norm_a[200] = long_scalar_mult(n, k + 1, scale, a);
+   var norm_a[100] = long_scalar_mult(n, k + 1, scale, a);
    // k + 1 registers now
-   var norm_b[200] = long_scalar_mult(n, k, scale, b);
+   var norm_b[100] = long_scalar_mult(n, k, scale, b);
 
    var ret;
    if (norm_b[k] != 0) {

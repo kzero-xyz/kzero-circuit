@@ -47,7 +47,7 @@ template FpMul(n, k) {
     // Moving to coefficient domain in order to calculate the actual product
     var ab[200] = poly_interp(2*k-1, v_ab);
     // ab_proper has length 2*k
-    var ab_proper[200] = getProperRepresentation(n + n + log_ceil(k), n, 2*k-1, ab);
+    var ab_proper[150] = getProperRepresentation(n + n + log_ceil(k), n, 2*k-1, ab);
 
     var long_div_out[2][100] = long_div(n, k, k, ab_proper, p);
 
